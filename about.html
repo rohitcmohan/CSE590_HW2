@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSE590 Parallel Programming Models</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+	<div id="header">
+		<div>
+			<a href="index.html" id="logo"><img src="images/sbu.jpg" alt="logo"></a>
+			<ul>
+				<li>
+					<a href="index.html">Pregel</a>
+				</li>
+				<li>
+					<a href="subdivisions.html">BSP</a>
+				</li>
+				<li class="selected">
+					<a href="about.html">Implementation</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="body" class="about">
+		<div style="float: right; width: 60%; text-align: justify;">
+				<h3>Vertex Model</h3>
+				<ul>
+					<li>The image shows the vertex model, where a vertex in active state executes a user-defined function and on completion, votes to halt.</li>
+					<li>The vertex then goes into the inactive state where messages are then passed onto the neighbouring vertices regarding curent vertex state.</li>
+					<li>This vertex state model is the basis of pregel implementations.</li><br><p></p>
+				</ul>
+				<h3>Maximum Value Example</h3>
+				<ul>
+				<li>The image shows a simple algorithm that passes the maximum vertex value that has been seen and this is propagated until no more messages are passed.</li>
+				<li>The figure illustrates these concepts using a simple example: given a strongly connected graph where each vertex contains a value, it propagates the largest value to every vertex.</li>
+				<li>In each superstep, any vertex that has learned a larger value from its messages sends it to all its neighbors. When no further vertices change in a superstep, the algorithm terminates</li>
+			</ul>
+		</div>
+		<div style="float: right; width: 40%;">
+				<img src="images/pregel1.jpg" alt="" style="padding-bottom: 40px; padding-top:60px">
+				<img src="images/pregel2.jpg" alt="" style="padding-bottom: 80px">
+		</div>
+
+		<div style="padding-bottom:40px; text-align: justify;">
+			<h3>Implementations</h3>
+			<p>The Pregel model relies on a robust implementation of vertex-to-vertex message passing. There are several approaches to such an implementatiion:</p>
+			<ul>
+				<li><b>OpenMPI</b>: Using message passing interface implementation will allow for fast and effective communication between processes in an MPI-cluster. However, such MPI
+					often involves large overheads in message type denitions and MPI calls are very verbose.</li>
+				<li><b>Remote Calls and References</b>: Data and command messages can be implemented	through remote calls. Each remote call yields a future that can be acted upon.
+					In our implementation, each process maintains two separate remote references, an incoming message queue and an outgoing control queue.</li>
+		</ul>
+		</div>
+
+		<div>
+			<h3>C++ API</h3>
+			<p>Writing a Pregel program involves subclassing the predefined Vertex class. Its template arguments define three value types, associated with vertices, edges, and messages.
+				Each vertex has an associated value of the specified type. </p>
+			<p>The user overrides the virtual Compute() method, which will be executed at each active vertex in every superstep. Predefined Vertex methods allow Compute() to query information
+				about the current vertex and its edges, and to send messages to other vertices. Compute() can inspect the value associated with its vertex via GetValue() or modify it via MutableValue().</p>
+			<p> It can inspect and modify the values of out-edges using methods supplied by the out-edge iterator. These state updates are visible immediately. Since their visibility is confined to
+				the modified vertex, there are no data races on concurrent value access from different vertices.</p>
+			<p>The values associated with the vertex and its edges are the only per-vertex state that persists across supersteps. Limiting the graph state managed by the framework to a single
+				value per vertex or edge simplifies the main computation cycle, graph distribution, and failure recovery.</p>
+		</div>
+
+	</div>
+	<div id="footer">
+		<div>
+
+		</div>
+	</div>
+</body>
+</html>

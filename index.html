@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSE590 Parallel Programming Models</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+	<div id="header">
+		<div>
+			<a href="index.html" id="logo"><img src="images/sbu.jpg" alt="logo"></a>
+			<ul>
+				<li class="selected">
+					<a href="index.html">Pregel</a>
+				</li>
+				<li>
+					<a href="subdivisions.html">BSP</a>
+				</li>
+				<li>
+					<a href="about.html">Implementation</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="body" class="home">
+		<div>
+			<div style="text-align: justify">
+				<!-- <img src="images/.png" alt=""> -->
+				<h2><b>Pregel: A System for Large-Scale Graph Processing</b></h2>
+				<p>
+					<b>Pregel</b> Pregel is a a scalable and fault-tolerant platform with an API that is sufficiently exible to express arbitrary graph algorithms, that was designed to address distributed processing
+					of large scale graphs. The high-level organization of Pregel is inspired by BSP.
+				</p>
+				<p>
+					The link to the paper: <a href="http://www.dcs.bbk.ac.uk/~dell/teaching/cc/paper/sigmod10/p135-malewicz.pdf">Pregel Paper</a>
+				</p>
+				<p>Efficient processing of large graphs is challenging. Graph algorithms often exhibit poor locality of memory access, very little work per vertex, and a changing degree of parallelism
+					over the course of execution. Pregel is a system developed to tackle these issues and provide a platform to process large graphs parallely.</p>
+			</div>
+		</div>
+		<br>
+		<div>
+			<div>
+				<h3>Pregel Working Overview</h3>
+				<p>
+					Pregel computations consist of a sequence of iterations, called supersteps.
+					<ul>
+						<li>During a superstep the framework invokes a userdefined function for each vertex, conceptually in parallel. A function specifies behavior at a single vertex V and a single superstep S.</li>
+						<li>The system passes messages around to each vertex from every other vertex which help discern the state of the vertices.</li>
+						<li>The system can read messages sent to V in superstep S 1, send messages to other vertexes that will be received at superstep S + 1, and modify the state of V and its outgoing
+							edges. Messages are typically sent along outgoing edges, but a message may be sent to any vertex whose identier is known.</li>
+						<li>The vertex-centric approach is reminiscent of MapReduce in that users focus on a local action, processing each item independently, and the system composes these actions to lift
+							computation to a large dataset.</li>
+					</ul>
+				</p>
+			</div>
+		</div>
+		<br>
+		<div>
+			<div>
+				<h3>Pregel Model of Computation</h3>
+				<p>
+					Pregel computations consist of a sequence of iterations, called supersteps.
+					<ul>
+						<li>A typical Pregel computation consists of input, when the graph is initialized, followed by a sequence of supersteps separated by global synchronization points until
+							the algorithm terminates, and nishing with output.</li>
+						<li>The input to a Pregel computation is a directed graph in which each vertex is uniquely identied by a string vertex identier.</li>
+						<li>Within each superstep the vertexes compute in parallel, each executing the same user-defined function that expresses the logic of a given algorithm.</li>
+						<li>Algorithm termination is based on every vertex voting to halt. The algorithm as a whole terminates when all vertexes are simultaneously inactive and there are no messages in transit.</li>
+						<li>The output of a Pregel program is the set of values explicitly output by the vertices.</li>
+					</ul>
+				</p>
+			</div>
+		</div>
+
+	</div>
+	<div id="footer">
+		<div>
+
+		</div>
+	</div>
+</body>
+</html>

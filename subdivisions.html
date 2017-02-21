@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>CSE590 Parallel Programming Models</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+	<div id="header">
+		<div>
+			<a href="index.html" id="logo"><img src="images/sbu.jpg" alt="logo"></a>
+			<ul>
+				<li>
+					<a href="index.html">Pregel</a>
+				</li>
+				<li class="selected">
+					<a href="subdivisions.html">BSP</a>
+				</li>
+				<li>
+					<a href="about.html">Implementation</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="body" class="subdivisions">
+		<h3>Bulk Synchronous Parallel Model</h3>
+		<p>
+			The Pregel model is inspired from the Bulk Synchronous Parallel model. The Bulk Synchronous Parallel (BSP) abstract computer is a bridging model for designing
+			parallel algorithms. A BSP computer consists of:
+		</p>
+		<ul>
+			<li>components capable of processing and/or local memory transactions (i.e., processors),</li>
+			<li>a network that routes messages between pairs of such components,</li>
+			<li>a hardware facility that allows for the synchronization of all or a subset of components.</li>
+		</ul>
+		<br>
+		<p>This is commonly interpreted as a set of processors which may follow dierent threads of computation, with each processor equipped with fast local memory and interconnected
+			by a communication network. A BSP algorithm relies heavily on the third feature; a computation proceeds in a series of global supersteps, which consists of three components:</p>
+			<ul>
+				<li><b>Concurrent computation</b>: every participating processor may perform local computations, i.e., each process can only make use of values stored in the local fast
+					memory of the processor. The computations occur asynchronously of all the others but may overlap with communication.</li>
+				<li><b>Communication</b>: The processes exchange data between themselves to facilitate remote data storage capabilities.</li>
+				<li><b>Barrier synchronization<b>: When a process reaches this point (the barrier), it waits until all other processes have reached the same barrier.</li>
+			</ul>
+			<br><br><br>
+	<div><img src="images/bsp.jpg" alt="logo" style="padding-left:120px"></div>
+	</div>
+	<div id="footer">
+		<div>
+
+		</div>
+	</div>
+</body>
+</html>
